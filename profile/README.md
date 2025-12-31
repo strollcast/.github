@@ -6,9 +6,13 @@ Listen to research papers while you stroll. Strollcast transforms dense academic
 
 ## Repositories
 
-### [static-site](https://github.com/strollcast/static-site)
+### [director](https://github.com/strollcast/director)
 
-Astro-based website hosting podcast episodes with integrated audio players. Includes Python tools for generating podcasts from research paper scripts using ElevenLabs text-to-speech.
+Full-stack podcast platform built on Cloudflare:
+- **Astro SSR website** on Cloudflare Pages
+- **Worker API** with D1 database, R2 storage, and Queues
+- **Claude** for generating conversational scripts from papers
+- **ElevenLabs/Inworld** for natural text-to-speech
 
 ### [StrollcastApp](https://github.com/strollcast/StrollcastApp)
 
