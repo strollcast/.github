@@ -5,16 +5,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 Strollcast is a dual-platform application that transforms ML research papers into audio podcasts. The repository contains:
-- **static-site/**: Astro website hosting episodes
-- **static-site/modal/**: Serverless podcast generation (Modal + Cloudflare R2)
-- **static-site/python/**: Local podcast generation tools (legacy, for preview)
+- **director/**: Astro website hosting episodes
+- **director/modal/**: Serverless podcast generation (Modal + Cloudflare R2)
+- **director/python/**: Local podcast generation tools (legacy, for preview)
 - **StrollcastApp/**: Native iOS app for listening and note-taking
 
 ## Build & Run Commands
 
 ### Static Site (Astro)
 ```bash
-cd static-site
+cd director
 npm install        # Install dependencies
 npm run dev        # Start dev server at localhost:4321
 npm run build      # Production build to dist/
@@ -29,7 +29,7 @@ open StrollcastApp.xcodeproj   # Open in Xcode
 
 ### Podcast Generation (Modal - Production)
 ```bash
-cd static-site/modal
+cd director/modal
 
 # Generate episode (runs on Modal, stores in Cloudflare R2)
 modal run -m src.generator \
@@ -42,7 +42,7 @@ modal deploy -m src.app
 
 ### Podcast Generation (Local - Preview Only)
 ```bash
-cd static-site/python
+cd director/python
 
 # Preview with macOS TTS (free, instant, no API needed)
 pixi run python generate.py ../public/<episode-folder> --preview
@@ -55,7 +55,7 @@ pixi run python generate.py ../public/<episode-folder> --preview
 2. `modal/` - Modal function generates audio via ElevenLabs, normalizes to -16 LUFS, creates VTT
 3. **Cloudflare R2 `strollcast-cache`** - Cached normalized audio segments (keyed by text hash)
 4. **Cloudflare R2 `strollcast-output`** - Final episodes (`.m4a`) and transcripts (`.vtt`)
-5. `public/api/episodes.json` - Episode metadata API consumed by iOS app
+5. `https://api.strollcast.com/episodes` - Episode metadata API consumed by iOS and Android apps
 
 ### iOS App Architecture
 - **Services/**: Business logic (PodcastService, AudioPlayer, DownloadManager, ZoteroService)
@@ -72,19 +72,19 @@ pixi run python generate.py ../public/<episode-folder> --preview
 
 ## Adding a New Episode
 
-1. Create folder: `static-site/public/<author>-<year>-<short-name>/`
+1. Create folder: `director/public/<author>-<year>-<short-name>/`
 2. Write `script.md` with speaker tags
 3. Preview (optional): `cd python && pixi run python generate.py ../public/<folder> --preview`
 4. Generate:
    ```bash
-   cd static-site/modal
+   cd director/modal
    modal run -m src.generator \
        --script-path ../public/<folder>/script.md \
        --episode-name <folder>
    ```
 5. Add `README.md` with episode metadata
 6. Update `src/pages/index.astro` episodes array
-7. Update `public/api/episodes.json` (iOS app consumes this)
+7. Update episodes API (consumed by iOS and Android apps via `https://api.strollcast.com/episodes`)
 
 ## Voice Configuration
 
