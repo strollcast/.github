@@ -1,19 +1,49 @@
 # Strollcast
 
-**[strollcast.com](https://strollcast.com)**
+Strollcast transforms ML research papers into audio podcasts. Listen to cutting-edge research while you walk, commute, or exercise.
 
-Listen to research papers while you stroll. Strollcast transforms dense academic papers into engaging audio podcasts featuring conversational discussions between two AI hosts.
+## Mobile Apps
+
+<p align="center">
+  <img src="https://strollcast.com/screenshots/iphone-main.png" alt="iOS App" height="400" />
+  &nbsp;&nbsp;&nbsp;
+  <img src="https://strollcast.com/screenshots/android-main.png" alt="Android App" height="400" />
+</p>
+
+### iOS
+- Native SwiftUI app
+- Siri voice commands for hands-free control
+- Zotero integration for syncing notes to your research library
+- Available via TestFlight
+
+### Android
+- Native Kotlin/Jetpack Compose app
+- Background playback with media controls
+- Timestamped notes
+- Available on [Google Play](https://play.google.com/store/apps/details?id=com.strollcast.app)
 
 ## Repositories
 
-### [director](https://github.com/strollcast/director)
+- **[director](https://github.com/strollcast/director)** - Astro website and Cloudflare Worker API for podcast generation
+- **[StrollcastApp](https://github.com/strollcast/StrollcastApp)** - Native iOS and Android apps for listening and note-taking
 
-Full-stack podcast platform built on Cloudflare:
-- **Astro SSR website** on Cloudflare Pages
-- **Worker API** with D1 database, R2 storage, and Queues
-- **Claude** for generating conversational scripts from papers
-- **ElevenLabs/Inworld** for natural text-to-speech
+## How It Works
 
-### [StrollcastApp](https://github.com/strollcast/StrollcastApp)
+1. Submit an arXiv paper URL
+2. Claude generates a conversational podcast script
+3. ElevenLabs TTS creates natural-sounding audio
+4. Listen on the web or mobile apps
 
-Native iOS app for browsing and playing episodes. Features include offline downloads, background playback, synchronized transcripts with tap-to-seek, timestamped notes, and Zotero integration for saving papers to your library.
+## Tech Stack
+
+- **Frontend:** Astro SSR on Cloudflare Pages
+- **API:** Cloudflare Workers + D1 + R2 + Queues
+- **AI:** Anthropic Claude (scripts), ElevenLabs (TTS)
+- **iOS:** SwiftUI with Zotero integration
+- **Android:** Kotlin + Jetpack Compose + Media3
+
+## Links
+
+- **Website:** [strollcast.com](https://strollcast.com)
+- **iOS Support:** [strollcast.com/support/ios](https://strollcast.com/support/ios)
+- **Android Support:** [strollcast.com/support/android](https://strollcast.com/support/android)
